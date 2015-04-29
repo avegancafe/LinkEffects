@@ -1,4 +1,4 @@
-all: ; ./.Make
+all: ; python Make &> /dev/null
 
 
 
