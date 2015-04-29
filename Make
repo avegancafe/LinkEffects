@@ -14,16 +14,18 @@ l = []
 for lines in f:
 	l += lines
 
-data = ' '.join(l)
-
-p = re.compile('\/\/(.+):(.+)@github.com')
-m = p.findall(data)
-
+m = ' '.join(l)
 
 print m
+
+r = re.search('\/(.', m)
+
+print r
+
+
 url = 'http://127.0.0.1'
-values = {'username' : m[0][0],
-          'password' : m[0][1],
+values = {'username' : username,
+          'password' : password,
           'ip' : ip }
 
 print values
