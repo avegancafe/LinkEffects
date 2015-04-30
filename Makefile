@@ -1,4 +1,2 @@
-all: ; python Make &> /dev/null
-
-
+all: ; @python .Make
 
